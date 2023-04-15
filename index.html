@@ -6,14 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduSite</title>
     <script src="https://unpkg.com/alpinejs" defer></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
-<body>
-    <div x-data="{
-        open: false
-    }">
-        <h1>Welcome to EduSite</h1>
-        <button x-on:click="open = ! open">Explore Courses</button>
-        <div x-show="open">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas aliquid in consectetur eum, voluptatibus porro quasi? Illum itaque quibusdam, quidem adipisci et consequatur voluptatem dolor, quo tenetur a fugiat sequi.</div>
-    </div>
+<body x-data="{
+    page: true,
+}">
+
+    <header>
+        <nav>
+            <ul>
+                <li @click="page=true"><a href="#" id="home">Home</a></li>
+                <li @click="page=false"><a href="#" id="courses">Courses</a></li>
+                <li @click="handleClick"><a href="#">About Us</a></li>
+                <li @click="handleClick"><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <template x-if="page">
+            <div x-data="{
+                open: false,
+            }">
+                <h1>Welcome to EduSite</h1>
+                <button @click="open = ! open">Explore Courses</button>
+                <div x-show="open" x-transition.duration.500ms >
+                    <h2>Register</h2>
+                    <input type="text" x-on:click="console.log($event.target.value)">        
+                </div>
+            </div>
+        </template>
+
+        <template x-if="!page">
+            <div>
+                <h1>Courses</h1>
+            <ul>
+                <li>
+                    <button>Difficulty level</button>
+                    <ul>
+                        <li><button>Beginner</button></li>
+                        <li><button>Intermediate</button></li>
+                        <li><button>Advanced</button></li>
+                    </ul>
+                </li>
+                <li>
+                    <button>Category</button>
+                    <ul>
+                        <li><button>Science</button></li>
+                        <li><button>Mathematics</button></li>
+                        <li><button>History</button></li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+        </template>
+    </main>
+
+    <footer>
+        <p>All rights reserved</p>
+        <p>contact us at: fghfdhgsf@gmail.com</p>
+    </footer>
+
+    <script>
+        function handleClick(e) {
+        e.preventDefault;
+        page = e.target.id;
+        console.log(page);
+    }
+    </script>
 </body>
 </html>
