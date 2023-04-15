@@ -41,24 +41,24 @@
         <template x-if="!page">
             <div>
                 <h1>Courses</h1>
-            <ul>
-                <li>
-                    <button>Difficulty level</button>
-                    <ul>
-                        <li><button>Beginner</button></li>
-                        <li><button>Intermediate</button></li>
-                        <li><button>Advanced</button></li>
-                    </ul>
-                </li>
-                <li>
-                    <button>Category</button>
-                    <ul>
-                        <li><button>Science</button></li>
-                        <li><button>Mathematics</button></li>
-                        <li><button>History</button></li>
-                    </ul>
-                </li>
-            </ul>
+                <ul>
+                    <li x-data="{visible:false}">
+                        <button x-on:click="visible=!visible">Difficulty level</button>
+                        <ul x-show="visible" x-on:click.outside="visible=false">
+                            <li><button>Beginner</button></li>
+                            <li><button>Intermediate</button></li>
+                            <li><button>Advanced</button></li>
+                        </ul>
+                    </li>
+                    <li x-data="{visible:false}">
+                        <button x-on:click="visible=!visible">Category</button>
+                        <ul x-show="visible" x-on:click.outside="visible=false">
+                            <li><button>Science</button></li>
+                            <li><button>Mathematics</button></li>
+                            <li><button>History</button></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </template>
     </main>
