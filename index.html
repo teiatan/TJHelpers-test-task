@@ -11,17 +11,33 @@
 <body x-data="{
     page: true,
     ifHidden: false
-}">
+}" class="font-serif">
 
-    <header class="fixed top-0 w-full sm:bg-red-500 lg:bg-gray-500">
-        <nav class="mx-auto px-4 sm:px-20 lg:px-40">
-            <ul class="flex gap-16">
-                <li @click="page=true"><a href="#" id="home">Home</a></li>
-                <li @click="page=false"><a href="#" id="courses">Courses</a></li>
-                <li @click="handleClick"><a href="#">About Us</a></li>
-                <li @click="handleClick"><a href="#">Contact Us</a></li>
-            </ul>
-        </nav>
+    <header class="fixed top-0 w-full bg-blue text-yellow h-10 flex items-center"
+        x-data="{
+            isMenuOpen: true
+        }"
+    >
+        <div class="md:mx-auto px-4 flex justify-end sm:block w-full">
+            <button x-show="isMenuOpen" x-on:click="isMenuOpen=!isMenuOpen" type="button" class="sm:hidden fill-yellow" aria-label="data-mobile-menu-open">
+                <svg width="28" height="28">
+                  <use href="./images/sprite.svg#burger-menu"></use>
+                </svg>
+            </button>
+            <button x-show="!isMenuOpen" x-on:click="isMenuOpen=!isMenuOpen"  type="button" class="sm:hidden fill-yellow">
+                <svg width="30" height="30">
+                  <use href="./images/sprite.svg#cross"></use>
+                </svg>
+              </button>
+            <nav x-bind:class="{'hidden': isMenuOpen}" class="absolute top-10 right-[-16px] sm:static sm:block px-4 sm:flex">
+                <ul class="bg-blue w-[130px] p-[10px] sm:w-auto sm:p-0 sm:flex gap-16 rounded-b-lg">
+                    <li @click="page=true"><a href="#" id="home">Home</a></li>
+                    <li @click="page=false"><a href="#" id="courses">Courses</a></li>
+                    <li @click="handleClick"><a href="#">About Us</a></li>
+                    <li @click="handleClick"><a href="#">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main class="pt-10 w-full">
@@ -29,9 +45,14 @@
         <template x-if="page" >
             <div x-data="{
                 open: false,
-            }" class="mx-auto px-4 sm:px-20 lg:px-40">
-                <h1>Welcome to EduSite</h1>
-                <button @click="open = ! open">Explore Courses</button>
+            }" class="mx-auto px-4
+            text-right flex flex-col justify-center items-center md:items-end gap-10 
+            
+            md:bg-[url('/images/bg-3.png')] bg-no-repeat bg-cover md:bg-contain bg-yellow h-[calc(100vh-79px)] ">
+                <h1 class="text-5xl sm:text-7xl w-[60vw] text-darkBrown">Welcome to EduSite</h1>
+                <p class="md:w-[60vw]">Whether you’re aiming to learn some new marketable skills or just want to explore a topic, this online learning platform is a great solution for you and your family members to learn on your own schedules. Busy parents can also complete courses quickly and save money choosing virtual classes over in-person ones. In fact, individuals learn 40% faster on digital platforms compared to in-person learning. 
+                </p>
+                <button @click="open = ! open" class="bg-green w-40 h-8 rounded-2xl">Explore Courses</button>
                 <div x-show="open" x-transition.duration.500ms >
                     <h2>Register</h2>
                     <input type="text" x-on:click="console.log($event.target.value)">        
@@ -40,20 +61,20 @@
         </template>
 
         <template x-if="!page" >
-            <div class="mx-auto px-4 sm:px-20 lg:px-40">
+            <div class="mx-auto">
                 <h1>Courses</h1>
-                <ul class="flex flex-row w-96 justify-between items-center font-medium">
+                <ul class="flex flex-row w-96 gap-16 items-center font-medium">
                     <li x-data="{visible:false}" class="relative">
                         <button x-on:click="visible=!visible" class="block hover:text-blue-500">Difficulty level</button>
-                        <ul x-show="visible" x-on:click.outside="visible=false">
+                        <ul x-show="visible" x-on:click.outside="visible=false" class=" absolute shadow">
                             <li><button class="block hover:text-blue-500">Beginner</button></li>
                             <li><button class="block hover:text-blue-500">Intermediate</button></li>
                             <li><button class="block hover:text-blue-500">Advanced</button></li>
                         </ul>
                     </li>
-                    <li x-data="{visible:false}">
+                    <li x-data="{visible:false}" class="relative">
                         <button x-on:click="visible=!visible" class="block hover:text-blue-500">Category</button>
-                        <ul x-show="visible" x-on:click.outside="visible=false">
+                        <ul x-show="visible" x-on:click.outside="visible=false" class=" absolute shadow">
                             <li><button class="block hover:text-blue-500">Science</button></li>
                             <li><button class="block hover:text-blue-500">Mathematics</button></li>
                             <li><button class="block hover:text-blue-500">History</button></li>
@@ -64,8 +85,8 @@
         </template>
     </main>
 
-    <footer class="w-full fixed bottom-0">
-        <div class="mx-auto px-4 flex sm:px-20 lg:px-40">
+    <footer class="w-full sm:fixed bottom-0 bg-gray-100 bg-blue text-green">
+        <div class="text-center mx-auto sm:flex sm:h-10 items-center justify-around">
             <p>All rights reserved</p>
             <p>contact us at: fghfdhgsf@gmail.com</p>
         </div>
@@ -79,7 +100,24 @@
         console.log(page);
 
         
+        
     }
+    
+    tailwind.config = {
+            theme: {
+                colors: {
+                    blue: '#37657D',
+                    yellow: '#FDD58D',
+                    green: '#7AAF9E',
+                    darkBrown: '#370A0F',
+                }
+            },
+            screens: {
+                'sm': '480px',
+                'md': '768px',
+                'lg': '1280px',
+            },
+        }
     </script>
 </body>
 </html>
