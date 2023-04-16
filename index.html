@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduSite</title>
     <script src="https://unpkg.com/alpinejs" defer></script>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body x-data="{
     page: true,
+    ifHidden: false
 }">
 
-    <header>
-        <nav>
-            <ul>
+    <header class="fixed top-0 w-full sm:bg-red-500 lg:bg-gray-500">
+        <nav class="mx-auto px-4 sm:px-20 lg:px-40">
+            <ul class="flex gap-16">
                 <li @click="page=true"><a href="#" id="home">Home</a></li>
                 <li @click="page=false"><a href="#" id="courses">Courses</a></li>
                 <li @click="handleClick"><a href="#">About Us</a></li>
@@ -23,12 +24,12 @@
         </nav>
     </header>
 
-    <main>
+    <main class="pt-10 w-full">
 
-        <template x-if="page">
+        <template x-if="page" >
             <div x-data="{
                 open: false,
-            }">
+            }" class="mx-auto px-4 sm:px-20 lg:px-40">
                 <h1>Welcome to EduSite</h1>
                 <button @click="open = ! open">Explore Courses</button>
                 <div x-show="open" x-transition.duration.500ms >
@@ -38,24 +39,24 @@
             </div>
         </template>
 
-        <template x-if="!page">
-            <div>
+        <template x-if="!page" >
+            <div class="mx-auto px-4 sm:px-20 lg:px-40">
                 <h1>Courses</h1>
-                <ul>
-                    <li x-data="{visible:false}">
-                        <button x-on:click="visible=!visible">Difficulty level</button>
+                <ul class="flex flex-row w-96 justify-between items-center font-medium">
+                    <li x-data="{visible:false}" class="relative">
+                        <button x-on:click="visible=!visible" class="block hover:text-blue-500">Difficulty level</button>
                         <ul x-show="visible" x-on:click.outside="visible=false">
-                            <li><button>Beginner</button></li>
-                            <li><button>Intermediate</button></li>
-                            <li><button>Advanced</button></li>
+                            <li><button class="block hover:text-blue-500">Beginner</button></li>
+                            <li><button class="block hover:text-blue-500">Intermediate</button></li>
+                            <li><button class="block hover:text-blue-500">Advanced</button></li>
                         </ul>
                     </li>
                     <li x-data="{visible:false}">
-                        <button x-on:click="visible=!visible">Category</button>
+                        <button x-on:click="visible=!visible" class="block hover:text-blue-500">Category</button>
                         <ul x-show="visible" x-on:click.outside="visible=false">
-                            <li><button>Science</button></li>
-                            <li><button>Mathematics</button></li>
-                            <li><button>History</button></li>
+                            <li><button class="block hover:text-blue-500">Science</button></li>
+                            <li><button class="block hover:text-blue-500">Mathematics</button></li>
+                            <li><button class="block hover:text-blue-500">History</button></li>
                         </ul>
                     </li>
                 </ul>
@@ -63,9 +64,12 @@
         </template>
     </main>
 
-    <footer>
-        <p>All rights reserved</p>
-        <p>contact us at: fghfdhgsf@gmail.com</p>
+    <footer class="w-full fixed bottom-0">
+        <div class="mx-auto px-4 flex sm:px-20 lg:px-40">
+            <p>All rights reserved</p>
+            <p>contact us at: fghfdhgsf@gmail.com</p>
+        </div>
+        
     </footer>
 
     <script>
@@ -73,6 +77,8 @@
         e.preventDefault;
         page = e.target.id;
         console.log(page);
+
+        
     }
     </script>
 </body>
