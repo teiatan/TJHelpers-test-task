@@ -22,7 +22,7 @@
             isMobileMenuOpen: false
         }" 
         x-on:click.outside="isMobileMenuOpen=false" 
-        class="fixed top-0 w-full h-10 flex items-center bg-blue text-green"
+        class="fixed top-0 w-full h-10 flex items-center bg-blue text-green z-10"
     >
         <div class="md:mx-auto px-4 sm:block w-full flex justify-end">
             <button 
@@ -69,7 +69,7 @@
         </div>
     </header>
 
-    <main class="w-full pt-10">
+    <main class="w-full pt-10 sm:pb-10">
 
         <template x-if="page">
             <div 
@@ -117,10 +117,11 @@
                                 <use href="./images/sprite.svg#arrow-up"></use>
                             </svg>
                         </button>
-                        <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 shadow">
-                            <li><button class="block hover:text-blue-500">Beginner</button></li>
-                            <li><button class="block hover:text-blue-500">Intermediate</button></li>
-                            <li><button class="block hover:text-blue-500">Advanced</button></li>
+                        <ul x-show="visible" x-on:click.outside="visible=false" 
+                            class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
+                            <li class="text-center"><button>Beginner</button></li>
+                            <li class="text-center"><button>Intermediate</button></li>
+                            <li class="text-center"><button>Advanced</button></li>
                         </ul>
                     </li>
                     <li x-data="{visible:false}" class="relative flex justify-center mt-2 min-[460px]:mt-0">
@@ -133,15 +134,51 @@
                                 <use href="./images/sprite.svg#arrow-up"></use>
                             </svg>
                         </button>
-                        <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 shadow">
-                            <li><button class="block hover:text-blue-500">Science</button></li>
-                            <li><button class="block hover:text-blue-500">Mathematics</button></li>
-                            <li><button class="block hover:text-blue-500">History</button></li>
+                        <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
+                            <li class="text-center"><button>Science</button></li>
+                            <li class="text-center"><button>Mathematics</button></li>
+                            <li class="text-center"><button>History</button></li>
                         </ul>
                     </li>
                 </ul>
-                <ul>
-
+                <ul class="flex w-full flex-wrap justify-center text-yellow">
+                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
+                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
+                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
+                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
+                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
+                        <svg class="absolute top-5 right-5" width="40" height="40">
+                                <use href="./images/sprite.svg#beginner"></use>
+                        </svg>
+                    </a></li>
+                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
+                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
+                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
+                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
+                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
+                        <svg class="absolute top-5 right-5" width="40" height="40">
+                                <use href="./images/sprite.svg#intermediate"></use>
+                        </svg>
+                    </a></li>
+                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
+                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
+                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
+                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
+                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
+                        <svg class="absolute top-5 right-5" width="40" height="40">
+                                <use href="./images/sprite.svg#advanced"></use>
+                        </svg>
+                    </a></li>
+                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
+                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
+                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
+                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
+                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
+                        <svg class="absolute top-5 right-5" width="40" height="40">
+                                <use href="./images/sprite.svg#beginner"></use>
+                        </svg>
+                    </a></li>
+                    
                 </ul>
             </div>
         </template>
@@ -201,6 +238,7 @@
                     yellow: '#FDD58D',
                     green: '#7AAF9E',
                     darkBrown: '#370A0F',
+                    orange: '#F07927'
                 },
             },
             
