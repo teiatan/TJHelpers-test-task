@@ -9,78 +9,139 @@
     <script src="https://unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body x-data="{
-    page: true,
-    ifHidden: false
-}" class="font-serif">
+<body 
+    x-data="{
+        page: false,
+        ifHidden: false
+    }" 
+    class="font-serif"
+>
 
-    <header x-on:click.outside="isMenuOpen=true" class="fixed top-0 w-full bg-blue text-green h-10 flex items-center"
+    <header
         x-data="{
-            isMenuOpen: true
-        }"
+            isMobileMenuOpen: false
+        }" 
+        x-on:click.outside="isMobileMenuOpen=false" 
+        class="fixed top-0 w-full h-10 flex items-center bg-blue text-green"
     >
-        <div class="md:mx-auto px-4 flex justify-end sm:block w-full">
-            <button x-show="isMenuOpen" x-on:click="isMenuOpen=!isMenuOpen" type="button" class="sm:hidden fill-green hover:fill-yellow" aria-label="data-mobile-menu-open">
+        <div class="md:mx-auto px-4 sm:block w-full flex justify-end">
+            <button 
+                type="button" 
+                x-show="!isMobileMenuOpen" 
+                x-on:click="isMobileMenuOpen=!isMobileMenuOpen" 
+                class="sm:hidden fill-green hover:fill-yellow"
+            >
                 <svg width="28" height="28">
                   <use href="./images/sprite.svg#burger-menu"></use>
                 </svg>
             </button>
-            <button x-show="!isMenuOpen" x-on:click="isMenuOpen=!isMenuOpen"  type="button" class="sm:hidden fill-green hover:fill-yellow">
+
+            <button 
+                type="button"
+                x-show="isMobileMenuOpen" 
+                x-on:click="isMobileMenuOpen=!isMobileMenuOpen"
+                class="sm:hidden fill-green hover:fill-yellow"
+            >
                 <svg width="30" height="30">
                   <use href="./images/sprite.svg#cross"></use>
                 </svg>
             </button>
-            <nav x-bind:class="{'hidden': isMenuOpen}" class="absolute top-10 right-[-16px] sm:static sm:block px-4 sm:flex">
-                <ul class="bg-blue w-[130px] p-[10px] sm:w-auto sm:p-0 sm:flex gap-16 rounded-b-lg">
-                    <li @click="page=true" class="hover:text-yellow"><a href="#" id="home">Home</a></li>
-                    <li @click="page=false" class="hover:text-yellow"><a href="#" id="courses">Courses</a></li>
-                    <li @click="handleClick" class="hover:text-yellow"><a href="#">About Us</a></li>
-                    <li @click="handleClick" class="hover:text-yellow"><a href="#">Contact Us</a></li>
+
+            <nav 
+                x-bind:class="{'hidden': !isMobileMenuOpen}" 
+                class="absolute top-10 right-[-16px]  px-4 sm:static sm:flex"
+            >
+                <ul class="w-[130px] sm:w-auto p-[10px] sm:p-0 sm:flex gap-16 bg-blue rounded-b-lg">
+                    <li @click="page=true; isMobileMenuOpen=false" class="hover:text-yellow">
+                        <a href="#" id="home">Home</a>
+                    </li>
+                    <li @click="page=false; isMobileMenuOpen=false" class="hover:text-yellow">
+                        <a href="#" id="courses">Courses</a>
+                    </li>
+                    <li @click="isMobileMenuOpen=false" class="hover:text-yellow">
+                        <a href="#">About Us</a>
+                    </li>
+                    <li @click="isMobileMenuOpen=false" class="hover:text-yellow">
+                        <a href="#">Contact Us</a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="pt-10 w-full">
+    <main class="w-full pt-10">
 
-        <template x-if="page" >
-            <div x-data="{
-                open: false,
-            }" class="mx-auto px-4
-            text-right flex flex-col justify-center items-center md:items-end gap-10 
-            
-            md:bg-[url('/images/bg-8.png')] bg-no-repeat bg-cover md:bg-contain bg-yellow min-h-[calc(100vh-79px)] ">
-                <h1 class="text-5xl sm:text-7xl w-[60vw] text-darkBrown">Welcome to EduSite</h1>
-                <p class="md:w-[60vw]">Whether you’re aiming to learn some new marketable skills or just want to explore a topic, this online learning platform is a great solution for you and your family members to learn on your own schedules. Busy parents can also complete courses quickly and save money choosing virtual classes over in-person ones. In fact, individuals learn 40% faster on digital platforms compared to in-person learning. 
+        <template x-if="page">
+            <div 
+                x-data="{
+                    open: false,
+                }" 
+                class="min-h-[calc(100vh-79px)] mx-auto p-4
+                    flex flex-col justify-center items-center gap-10 sm:text-right md:items-end  
+                    bg-yellow bg-no-repeat
+                    bg-[url('/images/hero-hat.svg')] bg-[length:160px_160px]
+                    md:bg-[url('/images/bg-8.png')] md:bg-contain"
+            >
+                <h1 class="w-[60vw] text-5xl sm:text-7xl text-darkBrown">Welcome to EduSite</h1>
+                <p class="md:w-[60vw]">
+                    Whether you’re aiming to learn some new marketable skills or just want to explore a topic, this online learning platform is a great solution for you and your family members to learn on your own schedules. Busy parents can also complete courses quickly and save money choosing virtual classes over in-person ones. In fact, individuals learn 40% faster on digital platforms compared to in-person learning. 
                 </p>
-                <button @click="open = ! open" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue">Explore Courses</button>
+                <button 
+                    @click="open = ! open" 
+                    class="bg-green w-40 h-8 rounded-2xl hover:bg-blue">
+                    Explore Courses
+                </button>
                 <div x-show="open" x-transition.duration.500ms >
-                    <h2>Register</h2>
-                    <input type="text" x-on:click="console.log($event.target.value)">        
+                    <label for="email" class="flex pb-4">
+                        <input 
+                            type="email" id="email"
+                            placeholder="Enter your e-mail for subscription" 
+                            class="w-[60vw] h-8 align-middle rounded-2xl"
+                        />
+                    </label>
                 </div>
             </div>
         </template>
 
         <template x-if="!page" >
-            <div class="mx-auto">
-                <h1>Courses</h1>
-                <ul class="flex flex-row w-96 gap-16 items-center font-medium">
-                    <li x-data="{visible:false}" class="relative">
-                        <button x-on:click="visible=!visible" class="block hover:text-blue-500">Difficulty level</button>
-                        <ul x-show="visible" x-on:click.outside="visible=false" class=" absolute shadow">
+            <div class="min-h-[calc(100vh-79px)] mx-auto p-4 bg-yellow">
+                <h1 class="text-5xl sm:text-7xl text-darkBrown text-center">Courses</h1>
+                <ul class="mx-auto font-medium min-[460px]:flex justify-center items-center gap-16 ">
+                    <li x-data="{visible:false}" class="relative flex justify-center">
+                        <button x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
+                            Difficulty level
+                            <svg x-show="!visible" width="12" height="12">
+                                <use href="./images/sprite.svg#arrow-down"></use>
+                            </svg>
+                            <svg x-show="visible" width="12" height="12">
+                                <use href="./images/sprite.svg#arrow-up"></use>
+                            </svg>
+                        </button>
+                        <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 shadow">
                             <li><button class="block hover:text-blue-500">Beginner</button></li>
                             <li><button class="block hover:text-blue-500">Intermediate</button></li>
                             <li><button class="block hover:text-blue-500">Advanced</button></li>
                         </ul>
                     </li>
-                    <li x-data="{visible:false}" class="relative">
-                        <button x-on:click="visible=!visible" class="block hover:text-blue-500">Category</button>
-                        <ul x-show="visible" x-on:click.outside="visible=false" class=" absolute shadow">
+                    <li x-data="{visible:false}" class="relative flex justify-center mt-2 min-[460px]:mt-0">
+                        <button x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
+                            Category
+                            <svg x-show="!visible" width="12" height="12">
+                                <use href="./images/sprite.svg#arrow-down"></use>
+                            </svg>
+                            <svg x-show="visible" width="12" height="12">
+                                <use href="./images/sprite.svg#arrow-up"></use>
+                            </svg>
+                        </button>
+                        <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 shadow">
                             <li><button class="block hover:text-blue-500">Science</button></li>
                             <li><button class="block hover:text-blue-500">Mathematics</button></li>
                             <li><button class="block hover:text-blue-500">History</button></li>
                         </ul>
                     </li>
+                </ul>
+                <ul>
+
                 </ul>
             </div>
         </template>
@@ -140,13 +201,9 @@
                     yellow: '#FDD58D',
                     green: '#7AAF9E',
                     darkBrown: '#370A0F',
-                }
+                },
             },
-            screens: {
-                'sm': '480px',
-                'md': '768px',
-                'lg': '1280px',
-            },
+            
         }
     </script>
 </body>
