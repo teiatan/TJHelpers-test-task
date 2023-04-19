@@ -74,7 +74,7 @@
         <template x-if="page">
             <div 
                 x-data="{
-                    open: false,
+                    isRegisterOpen: false,
                 }" 
                 class="min-h-[calc(100vh-79px)] mx-auto p-4
                     flex flex-col justify-center items-center gap-10 sm:text-right md:items-end  
@@ -87,11 +87,11 @@
                     Whether you’re aiming to learn some new marketable skills or just want to explore a topic, this online learning platform is a great solution for you and your family members to learn on your own schedules. Busy parents can also complete courses quickly and save money choosing virtual classes over in-person ones. In fact, individuals learn 40% faster on digital platforms compared to in-person learning. 
                 </p>
                 <button 
-                    @click="open = ! open" 
+                    @click="isRegisterOpen = !isRegisterOpen" 
                     class="bg-green w-40 h-8 rounded-2xl hover:bg-blue">
                     Explore Courses
                 </button>
-                <div x-show="open" x-transition.duration.500ms >
+                <div x-show="isRegisterOpen" x-transition.duration.500ms >
                     <label for="email" class="flex pb-4">
                         <input 
                             type="email" id="email"
@@ -104,7 +104,21 @@
         </template>
 
         <template x-if="!page" >
-            <div class="min-h-[calc(100vh-79px)] mx-auto p-4 bg-yellow">
+            <div class="min-h-[calc(100vh-79px)] mx-auto p-4 bg-yellow"
+                x-data="{
+                    courses: [],
+                    level: '',
+                    category: '',
+                    search: '',
+                    shownCourses: [],
+
+                    getCourses() {
+                        fetch()
+                        .then(response => response.json())
+                        .then(response => this.courses = response);
+                    },
+                }"
+            >
                 <h1 class="text-5xl sm:text-7xl text-darkBrown text-center">Courses</h1>
                 <ul class="mx-auto font-medium min-[460px]:flex justify-center items-center gap-16 ">
                     <li x-data="{visible:false}" class="relative flex justify-center">
@@ -148,7 +162,7 @@
                         <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
                         <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
                         <svg class="absolute top-5 right-5" width="40" height="40">
-                                <use href="./images/sprite.svg#beginner"></use>
+                            <use href="./images/sprite.svg#beginner"></use>
                         </svg>
                     </a></li>
                     <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
@@ -157,7 +171,7 @@
                         <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
                         <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
                         <svg class="absolute top-5 right-5" width="40" height="40">
-                                <use href="./images/sprite.svg#intermediate"></use>
+                            <use href="./images/sprite.svg#intermediate"></use>
                         </svg>
                     </a></li>
                     <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
@@ -166,19 +180,9 @@
                         <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
                         <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
                         <svg class="absolute top-5 right-5" width="40" height="40">
-                                <use href="./images/sprite.svg#advanced"></use>
+                            <use href="./images/sprite.svg#advanced"></use>
                         </svg>
-                    </a></li>
-                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
-                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
-                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
-                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
-                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
-                        <svg class="absolute top-5 right-5" width="40" height="40">
-                                <use href="./images/sprite.svg#beginner"></use>
-                        </svg>
-                    </a></li>
-                    
+                    </a></li>                  
                 </ul>
             </div>
         </template>
@@ -221,17 +225,8 @@
         
     </footer>
 
-    <script>
-        function handleClick(e) {
-        e.preventDefault;
-        page = e.target.id;
-        console.log(page);
-
-        
-        
-    }
-    
-    tailwind.config = {
+    <script>    
+        tailwind.config = {
             theme: {
                 colors: {
                     blue: '#37657D',
@@ -241,8 +236,11 @@
                     orange: '#F07927'
                 },
             },
-            
-        }
+        };
+
+
     </script>
+
+    <script type="module" src="./index.js"></script>
 </body>
 </html>
