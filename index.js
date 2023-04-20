@@ -1,2 +1,2 @@
-/* import courses from "./courses.json";
-console.log(JSON.parse(courses)); */
+import courses from "./courses.json";
+console.log(JSON.parse(courses));
