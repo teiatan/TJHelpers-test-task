@@ -106,7 +106,7 @@
         <template x-if="!page" >
             <div class="min-h-[calc(100vh-79px)] mx-auto p-4 bg-yellow"
                 x-data="{
-                    courses: [],
+                    courses: courses,
                     level: '',
                     category: '',
                     search: '',
@@ -155,7 +155,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="flex w-full flex-wrap justify-center text-yellow">
+                <!-- <ul class="flex w-full flex-wrap justify-center text-yellow">
                     <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
                         <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
                         <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
@@ -183,6 +183,24 @@
                             <use href="./images/sprite.svg#advanced"></use>
                         </svg>
                     </a></li>                  
+                </ul> -->
+                <ul class="flex w-full flex-wrap justify-center text-yellow"
+                x-data="{
+                    
+                }">
+                    <template x-for="course in courses">
+                        <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl">
+                            <a x-bind:href="course.url" target="_blank">
+                            <image class="w-full rounded-2xl" x-bind:src="course.img"></image>
+                            <h3 class="text-xl" x-text="course.title"></h3>
+                            <p class="font-thin text-orange text-justify" x-text="course.description"></p>
+                            <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1" x-text="course.category"></span>
+                            <svg class="absolute top-5 right-5" width="40" height="40">
+                                <use x-bind:href="levelFn(course.level)"></use>
+                            </svg>
+                            </a>
+                        </li> 
+                    </template>                   
                 </ul>
             </div>
         </template>
@@ -240,6 +258,19 @@
     </script>
 
     <script>
+        function levelFn(level) {
+            switch(level) {
+                case "Beginner":
+                    return "./images/sprite.svg#beginner"
+                case "Intermediate":
+                    return "./images/sprite.svg#intermediate"
+                case "Advanced":
+                    return "./images/sprite.svg#advanced"
+            }
+        }
+    </script>
+
+    <script>
         const courses = [
         {
             title: "React - The Complete Guide (incl Hooks, React Router, Redux)",
@@ -252,7 +283,7 @@
         {
             title: "Responsive Web Design Essentials - HTML5 CSS3 Bootstrap",
             description: "The best course for learning the basics of HTML5 and CSS3 from scratch. Including 5 projects, perfect for beginners.",
-            level: "Begginer",
+            level: "Beginner",
             category: "Frontend",
             img: "https://img-b.udemycdn.com/course/480x270/2459618_80a6.jpg",
             url: "https://www.udemy.com/course/responsive-web-design-tutorial-course-html5-css3-bootstrap/"
