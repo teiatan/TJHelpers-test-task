@@ -118,6 +118,7 @@
                         .then(response => this.courses = response);
                     },
                 }"
+                x-init="shownCourses=filterCourses(courses, level, category, search)"
             >
                 <h1 class="text-5xl sm:text-7xl text-darkBrown text-center">Courses</h1>
                 <ul class="mx-auto font-medium min-[460px]:flex justify-center items-center gap-16 ">
@@ -149,46 +150,17 @@
                             </svg>
                         </button>
                         <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
-                            <li class="text-center"><button>Science</button></li>
-                            <li class="text-center"><button>Mathematics</button></li>
-                            <li class="text-center"><button>History</button></li>
+                            <li class="text-center" x-on:click="category='Frontend'; visible=false"><button>Frontend</button></li>
+                            <li class="text-center" x-on:click="category='Backend'; visible=false"><button>Backend</button></li>
+                            <li class="text-center" x-on:click="category='Design'; visible=false"><button>Design</button></li>
                         </ul>
                     </li>
                 </ul>
-                <!-- <ul class="flex w-full flex-wrap justify-center text-yellow">
-                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
-                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
-                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
-                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
-                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
-                        <svg class="absolute top-5 right-5" width="40" height="40">
-                            <use href="./images/sprite.svg#beginner"></use>
-                        </svg>
-                    </a></li>
-                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
-                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
-                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
-                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
-                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
-                        <svg class="absolute top-5 right-5" width="40" height="40">
-                            <use href="./images/sprite.svg#intermediate"></use>
-                        </svg>
-                    </a></li>
-                    <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl"><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">
-                        <image class="w-full rounded-2xl" src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"></image>
-                        <h3 class="text-xl">React - The Complete Guide (incl Hooks, React Router, Redux)</h3>
-                        <p class="font-thin text-orange text-justify">Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!</p>
-                        <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1">Frontend</span>
-                        <svg class="absolute top-5 right-5" width="40" height="40">
-                            <use href="./images/sprite.svg#advanced"></use>
-                        </svg>
-                    </a></li>                  
-                </ul> -->
                 <ul class="flex w-full flex-wrap justify-center text-yellow"
                 x-data="{
                     
                 }">
-                    <template x-for="course in courses">
+                    <template x-for="course in shownCourses">
                         <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl">
                             <a x-bind:href="course.url" target="_blank">
                             <image class="w-full rounded-2xl" x-bind:src="course.img"></image>
@@ -196,7 +168,7 @@
                             <p class="font-thin text-orange text-justify" x-text="course.description"></p>
                             <span class="absolute top-5 left-5 bg-orange rounded-2xl p-1" x-text="course.category"></span>
                             <svg class="absolute top-5 right-5" width="40" height="40">
-                                <use x-bind:href="levelFn(course.level)"></use>
+                                <use x-bind:href="chooseLevelIcon(course.level)"></use>
                             </svg>
                             </a>
                         </li> 
@@ -258,7 +230,7 @@
     </script>
 
     <script>
-        function levelFn(level) {
+        function chooseLevelIcon(level) {
             switch(level) {
                 case "Beginner":
                     return "./images/sprite.svg#beginner"
@@ -321,6 +293,28 @@
             url: "https://www.udemy.com/course/nodejs-the-complete-guide/"
         },
         ]
+    </script>
+
+    <script>
+        function filterCourses(array, level, category, search) {
+
+        let newArray = [...array];
+            if(level !== '') {
+                newArray = array.filter(course => course.level === level);
+                console.log(newArray.filter(course => course.level === level));
+            };
+
+            if(category !== '') {
+                newArray = newArray.filter(course => course.category === category);
+            };
+
+            if(search.trim() !== '') {
+                newArray = newArray.filter(course => course.title.toLowerCase().includes(search.loLowerCase()));
+            };
+            console.log(newArray);
+        return newArray;
+            
+        }
     </script>
 </body>
 </html>
