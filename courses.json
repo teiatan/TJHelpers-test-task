@@ -1,4 +1,4 @@
-{"courses":[
+[
     {"title": "React - The Complete Guide (incl Hooks, React Router, Redux)",
 "description": "Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!",
 "level": "Intermediate",
@@ -11,4 +11,4 @@
 "category": "Frontend",
 "img": "https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg"}
 
-]}
+]
