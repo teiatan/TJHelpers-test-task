@@ -83,8 +83,8 @@
                 class="min-h-[calc(100vh-79px)] mx-auto p-4
                     flex flex-col justify-center items-center gap-10 sm:text-right md:items-end  
                     bg-yellow bg-no-repeat
-                    bg-[url('/images/hero-hat.svg')] bg-[length:160px_160px]
-                    md:bg-[url('/images/bg-8.png')] md:bg-contain"
+                    bg-[url(/images/hero-hat.svg)] bg-[length:160px_160px]
+                    md:bg-[url(/images/hero-bg.png)] md:bg-contain"
             >
                 <h1 class="w-[60vw] text-5xl sm:text-7xl text-darkBrown">Welcome to EduSite</h1>
                 <p class="md:w-[60vw]">
@@ -134,21 +134,21 @@
                             </svg>
                         </div>
                         <ul x-show="visible" x-on:click.outside="visible=false" 
-                            class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
+                            class="absolute top-10 w-[200px] rounded-2xl z-10 bg-yellow shadow">
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Difficulty level', category, search)">
-                                <input type="radio" id="all" name="level" value="Difficulty level" x-model="level">
+                                <input type="radio" id="all" name="level" value="Difficulty level" x-model="level" x-on:click="visible=!visible">
                                 <label for="all">All levels</label>
                             </li>
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Beginner', category, search)">
-                                <input type="radio" id="beginner" name="level" value="Beginner" x-model="level">
+                                <input type="radio" id="beginner" name="level" value="Beginner" x-model="level" x-on:click="visible=!visible">
                                 <label for="beginner">Beginner</label>
                             </li>
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Intermediate', category, search)">
-                                <input type="radio" id="intermediate" name="level" value="Intermediate" x-model="level">
+                                <input type="radio" id="intermediate" name="level" value="Intermediate" x-model="level" x-on:click="visible=!visible">
                                 <label for="intermediate">Intermediate</label>
                             </li>
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Advanced', category, search)">
-                                <input type="radio" id="advanced" name="level" value="Advanced" x-model="level">
+                                <input type="radio" id="advanced" name="level" value="Advanced" x-model="level" x-on:click="visible=!visible">
                                 <label for="advanced">Advanced</label>
                             </li>
                         </ul>
@@ -166,21 +166,21 @@
                             </svg>
                         </div>
                         <ul x-show="visible" x-on:click.outside="visible=false" 
-                            class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
+                            class="absolute top-10 w-[200px] rounded-2xl z-10 bg-yellow shadow">
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Category', search)">
-                                <input type="radio" id="allCategories" name="category" value="Category" x-model="category">
+                                <input type="radio" id="allCategories" name="category" value="Category" x-model="category" x-on:click="visible=!visible">
                                 <label for="allCategories">All categories</label>
                             </li>
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Design', search)">
-                                <input type="radio" id="Design" name="category" value="Design" x-model="category">
+                                <input type="radio" id="Design" name="category" value="Design" x-model="category" x-on:click="visible=!visible">
                                 <label for="Design">Design</label>
                             </li>
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Frontend', search)">
-                                <input type="radio" id="Frontend" name="category" value="Frontend" x-model="category">
+                                <input type="radio" id="Frontend" name="category" value="Frontend" x-model="category" x-on:click="visible=!visible">
                                 <label for="Frontend">Frontend</label>
                             </li>
                             <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Backend', search)">
-                                <input type="radio" id="Backend" name="category" value="Backend" x-model="category">
+                                <input type="radio" id="Backend" name="category" value="Backend" x-model="category" x-on:click="visible=!visible">
                                 <label for="Backend">Backend</label>
                             </li>
                         </ul>
