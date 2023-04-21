@@ -96,7 +96,7 @@
                         <input 
                             type="email" id="email"
                             placeholder="Enter your e-mail for subscription" 
-                            class="w-[60vw] h-8 align-middle rounded-2xl"
+                            class="w-[60vw] h-8 align-middle rounded-2xl pl-4"
                         />
                     </label>
                 </div>
@@ -115,6 +115,18 @@
                 x-init="shownCourses=filterCourses(courses, level, category, search)"  
             >
                 <h1 class="text-5xl sm:text-7xl text-darkBrown text-center">Courses</h1>
+                <form class="flex justify-center pb-4">
+                    <div class="relative">
+                        <input 
+                        type="text" id="search"
+                        placeholder="Search..." 
+                        class="w-[60vw] h-8 align-middle rounded-2xl pl-4"
+                        x-model="search"
+                        />
+                        <button type="submit" class="absolute top-1 right-2"
+                        x-on:click="shownCourses=filterCourses(courses, level, category, search)">🔍</button>
+                    </div>
+                </form>
                 <ul class="mx-auto font-medium min-[460px]:flex justify-center items-center gap-16 ">
                     <li x-data="{visible:false}" class="relative flex justify-center">
                         <div x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
@@ -164,7 +176,7 @@
                         </div>
                         <ul x-show="visible" x-on:click.outside="visible=false" 
                             class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
-                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'All categories', search)">
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Category', search)">
                                 <input type="radio" id="allCategories" name="category" value="Category" x-model="category">
                                 <label for="allCategories">All categories</label>
                             </li>
@@ -324,7 +336,6 @@
             let newArray = [...array];
                 if(level !== 'Difficulty level') {
                     newArray = array.filter(course => course.level === level);
-                    console.log(newArray.filter(course => course.level === level));
                 };
 
                 if(category !== 'Category') {
@@ -332,7 +343,10 @@
                 };
 
                 if(search.trim() !== '') {
-                    newArray = newArray.filter(course => course.title.toLowerCase().includes(search.loLowerCase()));
+
+                    newArray = newArray.filter(course => course.title.toLowerCase().includes(search.toLowerCase()));
+                    console.log(newArray);
+                    console.log(search);
                 };
             return newArray;
         };
