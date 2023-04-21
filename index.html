@@ -52,16 +52,20 @@
                 class="absolute top-10 right-[-16px]  px-4 sm:static sm:flex"
             >
                 <ul class="w-[130px] sm:w-auto p-[10px] sm:p-0 sm:flex gap-16 bg-blue rounded-b-lg">
-                    <li @click="page='home'; isMobileMenuOpen=false" class="hover:text-yellow">
+                    <li @click="page='home'; isMobileMenuOpen=false" class="hover:text-yellow"
+                    x-bind:class="{'text-yellow': checkCurrentPage('home', page)}">
                         <a href="#" id="home">Home</a>
                     </li>
-                    <li @click="page='courses'; isMobileMenuOpen=false" class="hover:text-yellow">
+                    <li @click="page='courses'; isMobileMenuOpen=false" class="hover:text-yellow"
+                    x-bind:class="{'text-yellow': checkCurrentPage('courses', page)}">
                         <a href="#" id="courses">Courses</a>
                     </li>
-                    <li @click="page='about us'; isMobileMenuOpen=false" class="hover:text-yellow">
+                    <li @click="page='about us'; isMobileMenuOpen=false" class="hover:text-yellow"
+                    x-bind:class="{'text-yellow': checkCurrentPage('about us', page)}">
                         <a href="#">About Us</a>
                     </li>
-                    <li @click="page='contact us'; isMobileMenuOpen=false" class="hover:text-yellow">
+                    <li @click="page='contact us'; isMobileMenuOpen=false" class="hover:text-yellow"
+                    x-bind:class="{'text-yellow': checkCurrentPage('contact us', page)}">
                         <a href="#">Contact Us</a>
                     </li>
                 </ul>
