@@ -12,8 +12,8 @@ use [live page](https://teiatan.github.io/TJHelpers-test-task/#)
 
 ## Usage
 
-1. Home
+1. Home.
     Explore Courses button opens subscription field
 
-2. Courses
+2. Courses.
     Search from, category and level dropdown lists allow to filter list of shown courses on the page.
