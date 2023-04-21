@@ -106,60 +106,84 @@
         <template x-if="!page" >
             <div class="min-h-[calc(100vh-79px)] mx-auto p-4 bg-yellow"
                 x-data="{
-                    courses: courses,
-                    level: '',
-                    category: '',
+                    courses: courses,   
+                    level: 'Difficulty level',
+                    category: 'Category',
                     search: '',
                     shownCourses: [],
-
-                    getCourses() {
-                        fetch()
-                        .then(response => response.json())
-                        .then(response => this.courses = response);
-                    },
                 }"
-                x-init="shownCourses=filterCourses(courses, level, category, search)"
+                x-init="shownCourses=filterCourses(courses, level, category, search)"  
             >
                 <h1 class="text-5xl sm:text-7xl text-darkBrown text-center">Courses</h1>
                 <ul class="mx-auto font-medium min-[460px]:flex justify-center items-center gap-16 ">
                     <li x-data="{visible:false}" class="relative flex justify-center">
-                        <button x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
-                            Difficulty level
+                        <div x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
+                            <button 
+                            x-text="level">
+                                Difficulty level
+                            </button>
                             <svg x-show="!visible" width="12" height="12">
                                 <use href="./images/sprite.svg#arrow-down"></use>
                             </svg>
                             <svg x-show="visible" width="12" height="12">
                                 <use href="./images/sprite.svg#arrow-up"></use>
                             </svg>
-                        </button>
+                        </div>
                         <ul x-show="visible" x-on:click.outside="visible=false" 
                             class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
-                            <li class="text-center"><button>Beginner</button></li>
-                            <li class="text-center"><button>Intermediate</button></li>
-                            <li class="text-center"><button>Advanced</button></li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Difficulty level', category, search)">
+                                <input type="radio" id="all" name="level" value="Difficulty level" x-model="level">
+                                <label for="all">All levels</label>
+                            </li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Beginner', category, search)">
+                                <input type="radio" id="beginner" name="level" value="Beginner" x-model="level">
+                                <label for="beginner">Beginner</label>
+                            </li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Intermediate', category, search)">
+                                <input type="radio" id="intermediate" name="level" value="Intermediate" x-model="level">
+                                <label for="intermediate">Intermediate</label>
+                            </li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, 'Advanced', category, search)">
+                                <input type="radio" id="advanced" name="level" value="Advanced" x-model="level">
+                                <label for="advanced">Advanced</label>
+                            </li>
                         </ul>
                     </li>
-                    <li x-data="{visible:false}" class="relative flex justify-center mt-2 min-[460px]:mt-0">
-                        <button x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
-                            Category
+                    <li x-data="{visible:false}" class="relative flex justify-center">
+                        <div x-on:click="visible=!visible" class="bg-green w-40 h-8 rounded-2xl hover:bg-blue flex items-center justify-center gap-2">
+                            <button 
+                            x-text="category">
+                                Category
+                            </button>
                             <svg x-show="!visible" width="12" height="12">
                                 <use href="./images/sprite.svg#arrow-down"></use>
                             </svg>
                             <svg x-show="visible" width="12" height="12">
                                 <use href="./images/sprite.svg#arrow-up"></use>
                             </svg>
-                        </button>
-                        <ul x-show="visible" x-on:click.outside="visible=false" class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
-                            <li class="text-center" x-on:click="category='Frontend'; visible=false"><button>Frontend</button></li>
-                            <li class="text-center" x-on:click="category='Backend'; visible=false"><button>Backend</button></li>
-                            <li class="text-center" x-on:click="category='Design'; visible=false"><button>Design</button></li>
+                        </div>
+                        <ul x-show="visible" x-on:click.outside="visible=false" 
+                            class="absolute top-8 w-[200px] rounded-2xl z-10 bg-yellow shadow">
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'All categories', search)">
+                                <input type="radio" id="allCategories" name="category" value="Category" x-model="category">
+                                <label for="allCategories">All categories</label>
+                            </li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Design', search)">
+                                <input type="radio" id="Design" name="category" value="Design" x-model="category">
+                                <label for="Design">Design</label>
+                            </li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Frontend', search)">
+                                <input type="radio" id="Frontend" name="category" value="Frontend" x-model="category">
+                                <label for="Frontend">Frontend</label>
+                            </li>
+                            <li class="text-center" x-on:click="shownCourses=filterCourses(courses, level, 'Backend', search)">
+                                <input type="radio" id="Backend" name="category" value="Backend" x-model="category">
+                                <label for="Backend">Backend</label>
+                            </li>
                         </ul>
                     </li>
                 </ul>
-                <ul class="flex w-full flex-wrap justify-center text-yellow"
-                x-data="{
-                    
-                }">
+                <ul class="flex w-full flex-wrap justify-center text-yellow">
                     <template x-for="course in shownCourses">
                         <li class="relative w-[calc(100vw-48px)] sm:w-[calc((100vw-100px)/2)] lg:w-[calc((100vw-100px)/3)] m-2 bg-blue p-4 shadow rounded-2xl">
                             <a x-bind:href="course.url" target="_blank">
@@ -292,29 +316,28 @@
             img: "https://img-c.udemycdn.com/course/480x270/1879018_95b6_3.jpg",
             url: "https://www.udemy.com/course/nodejs-the-complete-guide/"
         },
-        ]
+        ];
     </script>
 
     <script>
         function filterCourses(array, level, category, search) {
+            let newArray = [...array];
+                if(level !== 'Difficulty level') {
+                    newArray = array.filter(course => course.level === level);
+                    console.log(newArray.filter(course => course.level === level));
+                };
 
-        let newArray = [...array];
-            if(level !== '') {
-                newArray = array.filter(course => course.level === level);
-                console.log(newArray.filter(course => course.level === level));
-            };
+                if(category !== 'Category') {
+                    newArray = newArray.filter(course => course.category === category);
+                };
 
-            if(category !== '') {
-                newArray = newArray.filter(course => course.category === category);
-            };
+                if(search.trim() !== '') {
+                    newArray = newArray.filter(course => course.title.toLowerCase().includes(search.loLowerCase()));
+                };
+            return newArray;
+        };
 
-            if(search.trim() !== '') {
-                newArray = newArray.filter(course => course.title.toLowerCase().includes(search.loLowerCase()));
-            };
-            console.log(newArray);
-        return newArray;
-            
-        }
+        
     </script>
 </body>
 </html>
