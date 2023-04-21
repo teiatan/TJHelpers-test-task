@@ -275,9 +275,6 @@
             };
             return false;
         };
-    </script>
-
-    <script>
         function chooseLevelIcon(level) {
             switch(level) {
                 case "Beginner":
@@ -287,7 +284,22 @@
                 case "Advanced":
                     return "./images/sprite.svg#advanced"
             }
-        }
+        };
+        function filterCourses(array, level, category, search) {
+            let newArray = [...array];
+                if(level !== 'Difficulty level') {
+                    newArray = array.filter(course => course.level === level);
+                };
+
+                if(category !== 'Category') {
+                    newArray = newArray.filter(course => course.category === category);
+                };
+
+                if(search.trim() !== '') {
+                    newArray = newArray.filter(course => course.title.toLowerCase().includes(search.toLowerCase()));
+                };
+            return newArray;
+        };
     </script>
 
     <script>
@@ -341,26 +353,6 @@
             url: "https://www.udemy.com/course/nodejs-the-complete-guide/"
         },
         ];
-    </script>
-
-    <script>
-        function filterCourses(array, level, category, search) {
-            let newArray = [...array];
-                if(level !== 'Difficulty level') {
-                    newArray = array.filter(course => course.level === level);
-                };
-
-                if(category !== 'Category') {
-                    newArray = newArray.filter(course => course.category === category);
-                };
-
-                if(search.trim() !== '') {
-                    newArray = newArray.filter(course => course.title.toLowerCase().includes(search.toLowerCase()));
-                };
-            return newArray;
-        };
-
-        
     </script>
 </body>
 </html>
